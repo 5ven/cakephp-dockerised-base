@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  db:
+    image: mariadb
+    env_file: .env
+    volumes:
+      - ./data/db:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - cakephp-net
+
+  cakephp:
+    build:
+      context: ./build
+    env_file: .env
+    volumes:
+      - ./app:/var/www/html/
+      - ./config/cakephp/app_local.php:/var/www/html/config/app_local.php
+    depends_on:
+      - db
+    networks:
+      - cakephp-net
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - ./config/nginx/cakephp.conf:/etc/nginx/conf.d/cakephp.conf
+      - ./config/nginx/proxy.conf:/etc/nginx/conf.d/proxy.conf
+      - ./config/local-certificates:/etc/nginx/certs:ro
+      - ./app:/var/www/html/
+      - ./config/cakephp/app_local.php:/var/www/html/config/app_local.php
+      - ./logs:/var/log/nginx/
+    depends_on:
+      - cakephp
+    networks:
+      - cakephp-net
+
+networks:
+  cakephp-net:
+    driver: bridge

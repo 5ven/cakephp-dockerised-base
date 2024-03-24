@@ -1,0 +1,13 @@
+.env
+config/local-certificates/*
+!.gitkeep
+config/local-certificates/*
+!.gitkeep
+data/db/*
+!.gitkeep
+data/cakephp/*
+!.gitkeep
+logs/*
+!.gitkeep
+app/*
+!.gitkeep
