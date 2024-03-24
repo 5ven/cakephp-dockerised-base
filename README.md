@@ -1,13 +1,13 @@
-# Setting up for local development
+# Setting Up for Local Development
 
 ## 1. Environment Configuration
-Create a `.env` file under the project root directory and add the following lines into it (change the passwords accordingly):
+Create a `.env` file in the project root directory and include the following lines, adjusting the passwords as necessary:
 
 ```
-MYSQL_ROOT_PASSWORD=the-pass
+MYSQL_ROOT_PASSWORD=your_password
 MYSQL_DATABASE=cakephp
 MYSQL_USER=cakephp
-MYSQL_PASSWORD=the-pass
+MYSQL_PASSWORD=your_password
 MYSQL_HOST=db
 DEBUG=false
 ```
@@ -16,7 +16,7 @@ DEBUG=false
 - **macOS:**
   ```
   brew install mkcert
-  brew install nss # if you use Firefox
+  brew install nss # For Firefox users
   ```
 - **Linux:**
   ```
@@ -26,47 +26,51 @@ DEBUG=false
   go build -ldflags "-X main.Version=$(git describe --tags)"
   ```
 - **Windows:**
-  - Use Chocolatey:
+  - Via Chocolatey:
     ```
     choco install mkcert
     ```
-  - See also: [mkcert on GitHub](https://github.com/FiloSottile/mkcert)
+  - Further information: [mkcert on GitHub](https://github.com/FiloSottile/mkcert)
 
 ## 3. Common Step for All Platforms
+Execute the following command to install mkcert on your machine:
 ```
 mkcert -install
 ```
-Only generate the certificates on the machine you plan to work on.
+Generate the certificates only on the device you're working with.
 
-## 4. Generate the Certs
+## 4. Generate the Certificates
 ```
 mkcert cakephp
 ```
 
 ## 5. Certificate Distribution
-Copy the generated certificates over to the development Linux setup, into the `config/local-certificates` folder. Currently the following file names are assumed in nginx configuration:
+Transfer the generated certificates to your development Linux setup, placing them into the `config/local-certificates` directory. The nginx configuration currently assumes the following filenames:
 ```
-cakephp-key.pem # the private key
-cakephp.pem # the cert
+cakephp-key.pem # Private key
+cakephp.pem # Certificate
 ```
 
 ## 6. Edit the Hosts File
-Edit `/etc/hosts` on Linux/macOS or `C:\Windows\system32\drivers\etc\hosts` on Windows and add the following line:
+Update `/etc/hosts` on Linux/macOS or `C:\Windows\system32\drivers\etc\hosts` on Windows by adding the following entry:
 ```
-<the ip address of your server> cakephp
+<your server's IP address> cakephp
 ```
 Example:
 ```
 192.168.1.134 cakephp
 ```
-This allows you to use the local development domain in browsers.
+This step enables the use of a local development domain in your browser.
 
 ## 7. CakePHP Setup
-If you have not set up CakePHP yet, run the script at `scripts/setup.sh` to do that.
+If CakePHP is not already set up, execute the script located at `helpers/setup.sh` to configure it.
 
 ## 8. Fix Access Rights
-After cloning the CakePHP code, cd into the "helpers" dir and run `fix-access-rights.sh` in order to be able to edit the files, for example, in VS Code.
+After cloning the CakePHP repository, navigate to the "helpers" directory and execute `fix-permissions.sh` to ensure file accessibility, allowing for editing in tools like VS Code.
 
 ## 9. Access the Front-end
-Access the front-end at:
+Visit the front-end at:
 [https://cakephp/](https://cakephp/)
+
+## 10. Start Working
+To start, update the .gitignore file by removing entries for directories you wish to track with Git. These often include directories such as app/{src, plugins, templates, tests, webroot, config}. Then, delete the .git directories (app/.git and ./git) and reinitialize Git from the project's root directory.
