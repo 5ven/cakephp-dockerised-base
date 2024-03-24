@@ -57,5 +57,7 @@ DEBUG=false
 
 6. If you have not set up CakePHP yet, use the script at scripts/setup.sh to do that
 
-7. Access the front-end at:
+7. After cloning the CakePHP code, cd into the "helpers" dir and run fix-access-rights.sh in order to be able to edit the files for example in VS Code.
+
+8. Access the front-end at:
 [https://cakephp/](https://cakephp/)
