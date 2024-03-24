@@ -12,7 +12,7 @@ fi
 DOCKER_COMPOSE_CMD=$(find_docker_compose_command)
 
 # Define directories
-CAKEPHP_APP_DIR=./app
+CAKEPHP_APP_DIR=../app
 CAKEPHP_GIT_REPO=https://github.com/cakephp/app.git
 CAKEPHP_BRANCH="5.x"
 CAKEPHP_CONTAINER_NAME=cakephp
@@ -53,6 +53,6 @@ $DOCKER_COMPOSE_CMD exec cakephp composer install
 # Update permissions for the app directory
 echo "Updating permissions..."
 $DOCKER_COMPOSE_CMD exec cakephp chown www-data:www-data /var/www/html
-$DOCKER_COMPOSE_CMD exec cakephp chown -R $CURRENT_USER_ID:www-data /var/www/html/*
+$DOCKER_COMPOSE_CMD exec cakephp chown -R $CURRENT_USER_ID:www-data /var/www/html/.*
 
 echo "CakePHP dependencies installed. CakePHP app is being served by Nginx and PHP-FPM."
